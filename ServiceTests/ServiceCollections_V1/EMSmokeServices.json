@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "17238f54-3547-4d41-860f-3247bc85e581",
+		"name": "CRUD Operation EmployeeManagement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10189735"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 500);\r",
+							"\r",
+							"//Test01\r",
+							"pm.test(\"Create POST response success,200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Test verification\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var name = jsonData.name.toString();\r",
+							"var email = jsonData.email.toString();\r",
+							"var id = jsonData._id.toString();\r",
+							"\r",
+							"\r",
+							" display(\"Name\", name);\r",
+							" display(\"Email\", email);\r",
+							" display(\"ID\", id);\r",
+							" setEnvironment(\"uid\", id);\r",
+							"\r",
+							"function display(item, value){\r",
+							"    pm.test(item+\"  \"+value, function () {\r",
+							"\r",
+							"    });\r",
+							"}\r",
+							"function setEnvironment(key, value){\r",
+							"    pm.environment.set(key,value);\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/*var uID=Math.floor((Math.random() * 10000) + 1);\r",
+							"var gID=Math.floor((Math.random() * 10000) + 1);\r",
+							"pm.environment.set(\"uid\", uID);\r",
+							"pm.environment.set(\"gid\", gID);*/\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "{{gender}}",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "{{status}}",
+							"type": "text"
+						},
+						{
+							"key": "proofsubmitted",
+							"value": "{{proofsubmitted}}",
+							"type": "text"
+						},
+						{
+							"key": "department",
+							"value": "{{department}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{serviceEndPoint}}/api/users",
+					"host": [
+						"{{serviceEndPoint}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 500);\r",
+							"\r",
+							"//Test01\r",
+							"pm.test(\"Update PUT response Success, 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var id = jsonData._id.toString();\r",
+							"var iSal = jsonData.salary.toString();\r",
+							"\r",
+							" display(\"ID\", id);\r",
+							" display(\"updated salary \", iSal);\r",
+							" setEnvironment(\"uid\", id);\r",
+							" setEnvironment(\"sal\", iSal);\r",
+							"\r",
+							"function display(item, value){\r",
+							"    pm.test(item+\"  \"+value, function () {\r",
+							"\r",
+							"    });\r",
+							"}\r",
+							"function setEnvironment(key, value){\r",
+							"    pm.environment.set(key,value);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var ranID=Math.floor((Math.random() * 100) + 1);\r",
+							"pm.environment.set(\"rID\", ranID);\r",
+							"pm.environment.set(\"upID\", pm.environment.get(\"uid\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "{{gender}}",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "{{status}}",
+							"type": "text"
+						},
+						{
+							"key": "proofsubmitted",
+							"value": "{{proofsubmitted}}",
+							"type": "text"
+						},
+						{
+							"key": "department",
+							"value": "{{department}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}{{rID}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{serviceEndPoint}}/api/users/{{upID}}",
+					"host": [
+						"{{serviceEndPoint}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{upID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 200);\r",
+							"\r",
+							"//Test01\r",
+							"pm.test(\"Get response success, 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"/*var aSal = jsonData.salary.toString();\r",
+							"var eSal= pm.environment.get(\"sal\");\r",
+							"pm.test(\"Updated salary test\", ()=> {\r",
+							"\tpm.expect(aSal).to.eql(eSal);\r",
+							"})*/\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{serviceEndPoint}}/api/users?id={{upID}}",
+					"host": [
+						"{{serviceEndPoint}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{upID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 500);\r",
+							"\r",
+							"//Test01\r",
+							"pm.test(\"Delete response success,200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "gender",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "proofsubmitted",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "department",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{serviceEndPoint}}/api/users/{{upID}}",
+					"host": [
+						"{{serviceEndPoint}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{upID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 500);\r",
+							"\r",
+							"//Test01\r",
+							"pm.test(\"Get all users response success,200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{serviceEndPoint}}/api/users",
+					"host": [
+						"{{serviceEndPoint}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/**For QAT */",
+					"pm.environment.set(\"serviceEndPoint\",\"http://localhost:3000\");",
+					"",
+					"",
+					"/**For Load ",
+					"pm.environment.set(\"serviceEndPoint\",\"http://localhost:4000\");*/"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

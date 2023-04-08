@@ -1,0 +1,1 @@
+newman run EMSmokeServices.json -d TestData.csv -n 2 --delay-request 500  -r htmlextra --reporter-htmlextra-noSyntaxHighlighting --reporter-htmlextra-omitHeaders --reporter-htmlextra-browserTitle "Employee Management Smoke Suite" --reporter-htmlextra-title "Employee Management Service Test"
