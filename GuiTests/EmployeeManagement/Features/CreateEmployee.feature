@@ -1,7 +1,6 @@
 ﻿Feature: CreateEmployee
 
 As a user I want to create employee using basic details
-
 @smoketest
 Scenario: 01_Create employee in employee manager appliation and verify its created and delete the same
 	Given I lauch application
@@ -39,4 +38,20 @@ Scenario: 01_Create employee in employee manager appliation and verify its creat
 	Then I verify and accept alert message with text Do you really want to delete this record? on Home page
 	Then I verify and accept alert message with text Data Deleted Successfully! on Home page	
 
+@basic
+	Scenario: 03_Create employee in employee manager for running test pipeline
+	Given I lauch application
+	Then I click on newEmployee webelement present in Home page
+	Then I set below values in CreateEmployee page
+	| key            | value               |
+	| name           | rom                 |
+	| email          | romcruise@gmail.com |
+	| male           | true                |
+	| active         | true                |
+	| department     | Foxtrot             |
+	| proofSubmitted | PAN                 |
+	| salary         | 175000              |
+	Then I click on save webelement present in CreateEmployee page
+	Then I verify and accept alert message with text Data Inserted Successfully! on CreateEmployee page
+	Then I click on allUsers webelement present in CreateEmployee page
 

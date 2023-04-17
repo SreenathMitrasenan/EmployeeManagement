@@ -10,6 +10,9 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Safari;
 using EmployeeManagement.Utilities;
 using Microsoft.Extensions.Options;
+using OpenQA.Selenium.Remote;
+using EmployeeManagement.Configuration;
+using System.Security.Policy;
 
 namespace EmployeeManagement.Managers
 {
@@ -17,13 +20,19 @@ namespace EmployeeManagement.Managers
     public  class DriverFactory
     {
         private static IWebDriver driver;
-        private static readonly Lazy<Logger> _logger = new Lazy<Logger>(() => Logger.Instance);
-        public static Logger LoggerInstance => _logger.Value;
 
         [BeforeTestRun]
         private static void BeforeTestRun()
         {
-            driver = GetDriver(FileSystem.GetBrowser());
+            if (FileSystem.GetCurrentEnvironmentType().ToLower().Trim().Equals("local"))
+            {
+                driver = GetDriver(FileSystem.GetBrowser());
+            }
+            else
+            {
+                driver = GetRemoteDriver(FileSystem.GetBrowser());
+            }
+            
         }
 
         [AfterTestRun]
@@ -37,9 +46,6 @@ namespace EmployeeManagement.Managers
         {
             var scenarioContext = ScenarioContext.Current;
             scenarioContext.Set(driver, "driver");
-
-            var logger = LoggerInstance;
-            ScenarioContext.Current.Set(logger, "logger");
 
         }
 
@@ -58,6 +64,21 @@ namespace EmployeeManagement.Managers
                 BrowserType.Edge => new EdgeDriver(),
                 _ => new ChromeDriver(options)
             }; 
+        }
+
+        private static IWebDriver GetRemoteDriver(BrowserType browserType)
+        {
+            TestSettings.GridUri = new Uri("http://localhost:4444");
+            var ChromeOptions = new ChromeOptions();
+            ChromeOptions.AddArgument("--start-maximized");
+            return browserType switch
+            {
+                BrowserType.Chrome => new RemoteWebDriver(TestSettings.GridUri, ChromeOptions),
+                BrowserType.Firefox => new RemoteWebDriver(TestSettings.GridUri, new FirefoxOptions()),
+                BrowserType.Safari => new RemoteWebDriver(TestSettings.GridUri, new SafariOptions()),
+                BrowserType.Edge => new RemoteWebDriver(TestSettings.GridUri, new EdgeOptions()),
+                _ => new RemoteWebDriver(TestSettings.GridUri,new ChromeOptions())
+            };
         }
 
         public enum BrowserType

@@ -80,7 +80,6 @@ namespace EmployeeManagement.Hooks
             this.scenarioContext = scenariocontext;
             driver = scenarioContext.Get<IWebDriver>("driver");
             var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
-            //var table = Logger.Instance.GetLogTable();
             var table = ReportLog.GetLogTable();
 
             if (scenarioContext.TestError == null)
@@ -125,7 +124,6 @@ namespace EmployeeManagement.Hooks
                 }
             
             }
-            //Logger.Instance.Clear();
             ReportLog.Clear();
 
         }
