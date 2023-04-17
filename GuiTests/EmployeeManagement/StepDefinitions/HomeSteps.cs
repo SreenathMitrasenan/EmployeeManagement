@@ -34,8 +34,12 @@ namespace EmployeeManagement.StepDefinitions
         {
            // driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("http://localhost:3000");
+        }
 
-
+        [Given(@"I lauch swag application")]
+        public void GivenILauchSwagApplication()
+        {
+            driver.Navigate().GoToUrl("https://www.saucedemo.com/");
         }
 
         [Then(@"I click on (.*) webelement present in Home page")]

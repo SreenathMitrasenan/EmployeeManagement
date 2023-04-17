@@ -26,7 +26,7 @@ namespace EmployeeManagement.Features
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private static string[] featureTags = ((string[])(null));
         
 #line 1 "CreateEmployee.feature"
 #line hidden
@@ -35,7 +35,7 @@ namespace EmployeeManagement.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateEmployee", "As a user I want to create employee using basic details", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateEmployee", "As a user I want to create employee using basic details", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -47,28 +47,28 @@ namespace EmployeeManagement.Features
         }
         
         [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
+        public void TestInitialize()
         {
         }
         
         [NUnit.Framework.TearDownAttribute()]
-        public virtual void TestTearDown()
+        public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
         }
         
-        public virtual void ScenarioStart()
+        public void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public virtual void ScenarioCleanup()
+        public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -77,37 +77,27 @@ namespace EmployeeManagement.Features
         [NUnit.Framework.DescriptionAttribute("01_Create employee in employee manager appliation and verify its created and dele" +
             "te the same")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
-        public virtual void _01_CreateEmployeeInEmployeeManagerAppliationAndVerifyItsCreatedAndDeleteTheSame()
+        public void _01_CreateEmployeeInEmployeeManagerAppliationAndVerifyItsCreatedAndDeleteTheSame()
         {
             string[] tagsOfScenario = new string[] {
                     "smoketest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("01_Create employee in employee manager appliation and verify its created and dele" +
-                    "te the same", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+                    "te the same", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 6
  testRunner.Given("I lauch application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
+#line 7
  testRunner.Then("I click on newEmployee webelement present in Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -125,27 +115,27 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "salary",
                             "175000"});
-#line 9
+#line 8
  testRunner.Then("I set below values in CreateEmployee page", ((string)(null)), table1, "Then ");
 #line hidden
-#line 15
+#line 14
  testRunner.Then("I click on save webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 16
+#line 15
  testRunner.Then("I verify and accept alert message with text Data Inserted Successfully! on Create" +
                         "Employee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 17
+#line 16
  testRunner.Then("I click on allUsers webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 18
+#line 17
  testRunner.Then("I delete the employee having NAME property as Roger on Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 19
+#line 18
  testRunner.Then("I verify and accept alert message with text Do you really want to delete this rec" +
                         "ord? on Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 20
+#line 19
  testRunner.Then("I verify and accept alert message with text Data Deleted Successfully! on Home pa" +
                         "ge", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -157,37 +147,27 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("02_Create employee in employee manager appliation and verify its created and dele" +
             "te the same")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
-        public virtual void _02_CreateEmployeeInEmployeeManagerAppliationAndVerifyItsCreatedAndDeleteTheSame()
+        public void _02_CreateEmployeeInEmployeeManagerAppliationAndVerifyItsCreatedAndDeleteTheSame()
         {
             string[] tagsOfScenario = new string[] {
                     "smoketest"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("02_Create employee in employee manager appliation and verify its created and dele" +
-                    "te the same", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 23
+                    "te the same", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 22
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
             {
                 testRunner.SkipScenario();
             }
             else
             {
                 this.ScenarioStart();
-#line 24
+#line 23
  testRunner.Given("I lauch application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 25
+#line 24
  testRunner.Then("I click on newEmployee webelement present in Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -214,29 +194,95 @@ this.ScenarioInitialize(scenarioInfo);
                 table2.AddRow(new string[] {
                             "salary",
                             "175000"});
-#line 26
+#line 25
  testRunner.Then("I set below values in CreateEmployee page", ((string)(null)), table2, "Then ");
 #line hidden
-#line 35
+#line 34
  testRunner.Then("I click on save webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 36
+#line 35
  testRunner.Then("I verify and accept alert message with text Data Inserted Successfully! on Create" +
                         "Employee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 37
+#line 36
  testRunner.Then("I click on allUsers webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 38
+#line 37
  testRunner.Then("I delete the employee having NAME property as Tom on Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 39
+#line 38
  testRunner.Then("I verify and accept alert message with text Do you really want to delete this rec" +
                         "ord? on Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 40
+#line 39
  testRunner.Then("I verify and accept alert message with text Data Deleted Successfully! on Home pa" +
                         "ge", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("03_Create employee in employee manager for running test pipeline")]
+        [NUnit.Framework.CategoryAttribute("basic")]
+        public void _03_CreateEmployeeInEmployeeManagerForRunningTestPipeline()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "basic"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("03_Create employee in employee manager for running test pipeline", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 42
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 43
+ testRunner.Given("I lauch application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 44
+ testRunner.Then("I click on newEmployee webelement present in Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "key",
+                            "value"});
+                table3.AddRow(new string[] {
+                            "name",
+                            "rom"});
+                table3.AddRow(new string[] {
+                            "email",
+                            "romcruise@gmail.com"});
+                table3.AddRow(new string[] {
+                            "male",
+                            "true"});
+                table3.AddRow(new string[] {
+                            "active",
+                            "true"});
+                table3.AddRow(new string[] {
+                            "department",
+                            "Foxtrot"});
+                table3.AddRow(new string[] {
+                            "proofSubmitted",
+                            "PAN"});
+                table3.AddRow(new string[] {
+                            "salary",
+                            "175000"});
+#line 45
+ testRunner.Then("I set below values in CreateEmployee page", ((string)(null)), table3, "Then ");
+#line hidden
+#line 54
+ testRunner.Then("I click on save webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 55
+ testRunner.Then("I verify and accept alert message with text Data Inserted Successfully! on Create" +
+                        "Employee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 56
+ testRunner.Then("I click on allUsers webelement present in CreateEmployee page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
