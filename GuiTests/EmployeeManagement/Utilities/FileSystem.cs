@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EmployeeManagement.Hooks.SpecflowHooks;
 using static EmployeeManagement.Managers.DriverFactory;
 
 namespace EmployeeManagement.Utilities
