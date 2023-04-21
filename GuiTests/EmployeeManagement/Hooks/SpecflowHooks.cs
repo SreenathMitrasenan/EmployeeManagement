@@ -2,7 +2,9 @@
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
+using EmployeeManagement.Managers;
 using EmployeeManagement.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using TechTalk.SpecFlow;
+//[assembly: Parallelizable(ParallelScope.Fixtures)]
 
 namespace EmployeeManagement.Hooks
-{  [Binding]
+{
+    [Binding]
     public class SpecflowHooks
     {
         private static ExtentTest featureName;
@@ -23,25 +27,44 @@ namespace EmployeeManagement.Hooks
         public static AventStack.ExtentReports.ExtentReports extent;
         private readonly FeatureContext featureContext;
         public IWebDriver driver;
-        private ScenarioContext scenarioContext;
+        private ScenarioContext _scenarioContext;
+        private string stepType;
+        private string stepInfo;
+        private string cstepInfo;
 
         public SpecflowHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
             this.featureContext = featureContext;
+            _scenarioContext = scenarioContext;
 
+        }
+
+        [BeforeScenario]
+        void InitializeReportTitle()
+        {
+            DriverFactory driverfactory = new DriverFactory(_scenarioContext);
+            _scenarioContext.Set(driverfactory.SetBrowser(), "driver");
+            scenario = featureName.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
+        }
+
+        [AfterScenario]
+        void AfterScenario()
+        {
+            Thread.Sleep(500);
+            _scenarioContext.Get<IWebDriver>("driver").Quit();
+            extent.Flush();
         }
 
         [BeforeTestRun]
         public static void InitializeReport()
         {
-            string reportPath = FileSystem.GetReportPath() + $"\\ExtentReport.html";
+            string threadID = Thread.CurrentThread.ManagedThreadId.ToString();
+            string reportPath = FileSystem.GetReportPath() + $"\\ExtentReport_{threadID}.html";
             var htmlReporter = new ExtentV3HtmlReporter(reportPath);
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             htmlReporter.Config.DocumentTitle = "EMAutomation";
             htmlReporter.Config.ReportName = "ATR";
             htmlReporter.Config.CSS = ".extent .card-panel-test { font-family: 'Barlow', sans-serif !important; font-size: 16px; color: #333; }";
-            extent = new AventStack.ExtentReports.ExtentReports();
-            //htmlReporter.LoadConfig(FileSystem.GetConfigurationDir()+@"\ExtentConfig.xml");
             extent = new AventStack.ExtentReports.ExtentReports();
             extent.AddSystemInfo("Machine Name", Environment.MachineName);
             extent.AddSystemInfo("Username", Environment.UserName);
@@ -49,11 +72,11 @@ namespace EmployeeManagement.Hooks
             extent.AddSystemInfo("Processor Count", Environment.ProcessorCount.ToString());
             extent.AddSystemInfo("Process ID", Environment.ProcessId.ToString());
             extent.AddSystemInfo("System Dir", Environment.SystemDirectory);
-            extent.AddSystemInfo("Virtual Memory Size", Environment.SystemPageSize.ToString()+"MB");
+            extent.AddSystemInfo("Virtual Memory Size", Environment.SystemPageSize.ToString() + "MB");
             extent.AddSystemInfo("Environment", "EM Test [ QAT ]");
             extent.AddSystemInfo("IP Address", Dns.GetHostByName(Dns.GetHostName()).AddressList[1].ToString());
             extent.AddSystemInfo("Run Time STart", DateTime.Now.ToString());
-            
+
             extent.AttachReporter(htmlReporter);
 
         }
@@ -74,79 +97,68 @@ namespace EmployeeManagement.Hooks
         }
 
 
+
         [AfterStep]
         public void InsertReportingSteps(ScenarioContext scenariocontext)
         {
-            this.scenarioContext = scenariocontext;
-            driver = scenarioContext.Get<IWebDriver>("driver");
-            var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
+            this._scenarioContext = scenariocontext;
+            driver = _scenarioContext.Get<IWebDriver>("driver");
+            // For parallel execution
+            string stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
+            string stepInfo = _scenarioContext.StepContext.StepInfo.Text;
+            string cstepInfo = _scenarioContext.StepContext.StepInfo.Text;
             var table = ReportLog.GetLogTable();
 
-            if (scenarioContext.TestError == null)
+            if (_scenarioContext.TestError == null)
             {
 
                 if (stepType == "Given")
-                    scenario.CreateNode<Given>("Given " + ScenarioStepContext.Current.StepInfo.Text)
+                    scenario.CreateNode<Given>("Given " + stepInfo)
                         .Pass("PASS")
                         .Log(Status.Pass, table)
                        ;
 
                 else if (stepType == "When")
-                    scenario.CreateNode<When>("When " + ScenarioStepContext.Current.StepInfo.Text)
+                    scenario.CreateNode<When>("When " + stepInfo)
                         .Pass("PASS")
                         .Log(Status.Pass, table);
                 else if (stepType == "Then")
-                    scenario.CreateNode<Then>("Then " + ScenarioStepContext.Current.StepInfo.Text)
+                    scenario.CreateNode<Then>("Then " + stepInfo)
                         .Pass("PASS")
                         .Log(Status.Pass, table);
                 else if (stepType == "And")
-                    scenario.CreateNode<And>("And " + ScenarioStepContext.Current.StepInfo.Text).Pass("PASS");
+                    scenario.CreateNode<And>("And " + stepInfo)
+                        .Pass("PASS")
+                        .Log(Status.Pass, table);
             }
-            else if (scenarioContext.TestError != null)
+
+            else if (_scenarioContext.TestError != null)
             {
-                string stepInfo = scenarioContext.StepContext.StepInfo.Text;
+
 
                 if (stepType == "Given")
                 {
-                    scenario.CreateNode<Given>(stepType + ": " + stepInfo).Fail(scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
+                    scenario.CreateNode<Given>(stepType + ": " + cstepInfo).Fail(_scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
                 }
                 else if (stepType == "When")
                 {
-                    scenario.CreateNode<When>(stepType + ": " + stepInfo).Fail(scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
+                    scenario.CreateNode<When>(stepType + ": " + cstepInfo).Fail(_scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
                 }
                 else if (stepType == "Then")
                 {
-                    scenario.CreateNode<Then>(stepType + ": " + stepInfo).Fail(scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
+                    scenario.CreateNode<Then>(stepType + ": " + cstepInfo).Fail(_scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
                 }
                 else if (stepType == "And")
                 {
-                    scenario.CreateNode<And>(stepType + ": " + stepInfo).Fail(scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
+                    scenario.CreateNode<And>(stepType + ": " + cstepInfo).Fail(_scenarioContext.TestError.Message).Fail("FAIL", MediaEntityBuilder.CreateScreenCaptureFromPath(CaptureScreen.TakeSnap(driver)).Build());
                 }
-            
+
             }
             ReportLog.Clear();
 
         }
 
 
-        [BeforeScenario]
-        void InitializeReportTitle(ScenarioContext scenariocontext)
-        {
-            scenario = featureName.CreateNode<Scenario>(scenariocontext.ScenarioInfo.Title);
-        }
-         /* [AfterScenario]
-         void CleanUp()
-         {
-             Thread.Sleep(500);
-             driver.Close();
-         }*/
 
-        [AfterScenario]
-        void AfterScenario()
-        {
-            Thread.Sleep(500);
-            //driver.Close();
-            extent.Flush();
-        }
     }
 }

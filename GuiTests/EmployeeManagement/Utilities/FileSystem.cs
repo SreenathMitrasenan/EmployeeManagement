@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EmployeeManagement.Hooks.SpecflowHooks;
 using static EmployeeManagement.Managers.DriverFactory;
 
 namespace EmployeeManagement.Utilities
@@ -54,14 +55,14 @@ namespace EmployeeManagement.Utilities
             return ReadJsonFile(GetConfigFilePath()).SelectToken("environment").SelectToken("current").ToString().Trim();
         }
 
-        public static BrowserType GetBrowser()
+        public static BrowserType GetBrowser(string browser)
         {
-            return FileSystem.GetCurrentBrowser() switch
+            return browser.ToLower().Trim() switch
             {
-                "Chrome" => BrowserType.Chrome,
-                "Firefox" => BrowserType.Firefox,
-                "Safari" => BrowserType.Safari,
-                "Edge" => BrowserType.Edge,
+                "chrome" => BrowserType.Chrome,
+                "firefox" => BrowserType.Firefox,
+                "safari" => BrowserType.Safari,
+                "edge" => BrowserType.Edge,
                 _ => BrowserType.Chrome
             };
 

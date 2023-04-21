@@ -19,10 +19,15 @@ namespace EmployeeManagement.Utilities
 
             try
             {
+                string screenshotFolder = FileSystem.GetScreenshotPath();
+                if (!Directory.Exists(screenshotFolder))
+                {
+                    Directory.CreateDirectory(screenshotFolder);
+                }
+
                 ITakesScreenshot ts = (ITakesScreenshot)driver;
                 Screenshot screenshot = ts.GetScreenshot();
-                finalpath = FileSystem.GetScreenshotPath() + @"\" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Trim() + ".png";
-                //Console.WriteLine("Screenshot path is " + finalpath);
+                finalpath = screenshotFolder + @"\" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Trim() + ".png";           
                 string screenshot_path = new Uri(finalpath).LocalPath;
                 screenshot.SaveAsFile(screenshot_path, OpenQA.Selenium.ScreenshotImageFormat.Png);
                 return screenshot_path;
