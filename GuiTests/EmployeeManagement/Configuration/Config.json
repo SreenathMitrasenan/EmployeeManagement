@@ -3,7 +3,7 @@
 		"QAT": "http://localhost:3000/"
 	},
 	"environment": {
-		"current": "remote"
+		"current": "local"
 	},
 	"files": {
 		"configuration": "Config.json"
@@ -20,7 +20,7 @@
 		"safari": "Safari",
 		"edge": "Edge"
 	},
-	"envsetup": {
+	"envlistinfo": {
 		"1": "local",
 		"2": "remote"
 	}

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using OpenQA.Selenium.Remote;
 using System.Security.Policy;
 using TechTalk.SpecFlow;
+using System.IO;
 
 namespace EmployeeManagement.Managers
 {
@@ -28,13 +29,15 @@ namespace EmployeeManagement.Managers
 
         public  IWebDriver SetBrowser()
         {
+           // string driverType = Environment.GetCommandLineArgs().Length > 1 ? Environment.GetCommandLineArgs()[1] : FileSystem.GetCurrentBrowser().ToString();
+            string driverType = FileSystem.GetCurrentBrowser().ToString();
             if (FileSystem.GetCurrentEnvironmentType().ToLower().Trim().Equals("local"))
-            {
-                driver = GetLocalDriver(FileSystem.GetBrowser());
+            {                
+                driver = GetLocalDriver(FileSystem.GetBrowser(driverType.ToLower()));
             }
             else
             {
-                driver = GetRemoteDriver(FileSystem.GetBrowser());
+                driver = GetRemoteDriver(FileSystem.GetBrowser(driverType.ToLower()));
             }
             _scenarioContext.Set(driver, "driver");
             return driver;
