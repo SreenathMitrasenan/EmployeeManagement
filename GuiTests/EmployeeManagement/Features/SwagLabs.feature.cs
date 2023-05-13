@@ -26,7 +26,7 @@ namespace EmployeeManagement.Features
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private string[] _featureTags = ((string[])(null));
         
 #line 1 "SwagLabs.feature"
 #line hidden
@@ -35,7 +35,7 @@ namespace EmployeeManagement.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SwagLabs", "As a user I want to login different swaglab users ", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SwagLabs", "As a user I want to login different swaglab users ", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -47,28 +47,28 @@ namespace EmployeeManagement.Features
         }
         
         [NUnit.Framework.SetUpAttribute()]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
         }
         
         [NUnit.Framework.TearDownAttribute()]
-        public void TestTearDown()
+        public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
         }
         
-        public void ScenarioStart()
+        public virtual void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public void ScenarioCleanup()
+        public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -76,16 +76,26 @@ namespace EmployeeManagement.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("01_Login swag lab using standard user and logout")]
         [NUnit.Framework.CategoryAttribute("swag")]
-        public void _01_LoginSwagLabUsingStandardUserAndLogout()
+        public virtual void _01_LoginSwagLabUsingStandardUserAndLogout()
         {
             string[] tagsOfScenario = new string[] {
                     "swag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("01_Login swag lab using standard user and logout", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("01_Login swag lab using standard user and logout", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -123,16 +133,26 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("02_Login swag lab using lockedout user and logout")]
         [NUnit.Framework.CategoryAttribute("swag")]
-        public void _02_LoginSwagLabUsingLockedoutUserAndLogout()
+        public virtual void _02_LoginSwagLabUsingLockedoutUserAndLogout()
         {
             string[] tagsOfScenario = new string[] {
                     "swag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("02_Login swag lab using lockedout user and logout", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("02_Login swag lab using lockedout user and logout", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -170,16 +190,26 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("03_Login swag lab using problem user and logout")]
         [NUnit.Framework.CategoryAttribute("swag")]
-        public void _03_LoginSwagLabUsingProblemUserAndLogout()
+        public virtual void _03_LoginSwagLabUsingProblemUserAndLogout()
         {
             string[] tagsOfScenario = new string[] {
                     "swag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("03_Login swag lab using problem user and logout", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("03_Login swag lab using problem user and logout", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -217,16 +247,26 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("04_Login swag lab using standard user and logout")]
         [NUnit.Framework.CategoryAttribute("swag")]
-        public void _04_LoginSwagLabUsingStandardUserAndLogout()
+        public virtual void _04_LoginSwagLabUsingStandardUserAndLogout()
         {
             string[] tagsOfScenario = new string[] {
                     "swag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("04_Login swag lab using standard user and logout", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("04_Login swag lab using standard user and logout", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -262,18 +302,28 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("01_Login swag lab using performance glitch user and logout")]
+        [NUnit.Framework.DescriptionAttribute("05_Login swag lab using performance glitch user and logout")]
         [NUnit.Framework.CategoryAttribute("swag")]
-        public void _01_LoginSwagLabUsingPerformanceGlitchUserAndLogout()
+        public virtual void _05_LoginSwagLabUsingPerformanceGlitchUserAndLogout()
         {
             string[] tagsOfScenario = new string[] {
                     "swag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("01_Login swag lab using performance glitch user and logout", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("05_Login swag lab using performance glitch user and logout", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 51
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }

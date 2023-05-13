@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace EmployeeManagement.Pages
 {
 
+
     public class CreateEmployeePage
     {
         private readonly IWebDriver _driver;
@@ -27,21 +28,21 @@ namespace EmployeeManagement.Pages
         public IWebElement department => _driver.FindElement(By.XPath("//select[@id='departmentType']"));
         public IWebElement salary => _driver.FindElement(By.XPath("//input[@name='salary']"));
         public IWebElement save => _driver.FindElement(By.XPath("//button[text()='Save']"));
-        public string[] GetControlInfo(string key)
+        public object[] GetControlInfo(string key)
         {
-            Dictionary<string, string[]> controls = new Dictionary<string, string[]>();
-            controls.Add("allUsers", new string[] { "All Users", "Button", "PartialLinkText", "All Users", "Click" });
-            controls.Add("addEmployeelabel", new string[] { "Add Employee", "Button", "XPath", "//h2[text()='Add Employee']", "Click" });
-            controls.Add("name", new string[] { "Name", "Textbox", "XPath", "//input[@name='name']", "SendKeys" });
-            controls.Add("email", new string[] { "Email", "Textbox", "XPath", "//input[@name='email']", "SendKeys" });
-            controls.Add("male", new string[] { "Male", "Radio", "XPath", "//input[@name='gender' and @id='radio-2']", "Click" });
-            controls.Add("female", new string[] { "Female", "Radio", "XPath", "//input[@name='gender' and @id='radio-3']", "Click" });
-            controls.Add("active", new string[] { "Active", "Radio", "XPath", "//input[@name='status' and @id='radio-4']", "Click" });
-            controls.Add("inactive", new string[] { "InActive", "Radio", "XPath", "//input[@name='status' and @id='radio-5']", "Click" });
-            controls.Add("proofSubmitted", new string[] { "ProofSubmitted", "Textbox", "XPath", "//input[@name='proofsubmitted']", "SendKeys" });
-            controls.Add("department", new string[] { "Department", "Dropdown", "XPath", "//select[@id='departmentType']", "Select" });
-            controls.Add("salary", new string[] { "Salary", "Textbox", "XPath", "//input[@name='salary']", "SendKeys" });
-            controls.Add("save", new string[] { "Save", "Button", "XPath", "//button[text()='Save']", "Click" });
+            Dictionary<string, object[]> controls = new Dictionary<string, object[]>();
+            controls.Add("allUsers", new object[] { "All Users", "Button", "Click", By.PartialLinkText("All Users") });
+            controls.Add("addEmployeelabel", new object[] { "Add Employee", "Button", "Click", By.XPath("//h2[text()='Add Employee']") });
+            controls.Add("name", new object[] { "Name", "Textbox", "SendKeys", By.XPath("//input[@name='name']") });
+            controls.Add("email", new object[] { "Email", "Textbox", "SendKeys", By.XPath("//input[@name='email']") });
+            controls.Add("male", new object[] { "Male", "Radio", "Click", By.XPath("//input[@name='gender' and @id='radio-2']") });
+            controls.Add("female", new object[] { "Female", "Radio", "Click", By.XPath("//input[@name='gender' and @id='radio-3']") });
+            controls.Add("active", new object[] { "Active", "Radio", "Click", By.XPath("//input[@name='status' and @id='radio-4']") });
+            controls.Add("inactive", new object[] { "InActive", "Radio", "Click", By.XPath("//input[@name='status' and @id='radio-5']") });
+            controls.Add("proofSubmitted", new object[] { "ProofSubmitted", "Textbox", "SendKeys", By.XPath("//input[@name='proofsubmitted']") });
+            controls.Add("department", new object[] { "Department", "Dropdown", "Select", By.XPath("//select[@id='departmentType']") });
+            controls.Add("salary", new object[] { "Salary", "Textbox", "SendKeys", By.XPath("//input[@name='salary']") });
+            controls.Add("save", new object[] { "Save", "Button", "Click", By.XPath("//button[text()='Save']") });
             if (controls.ContainsKey(key))
                 return controls[key];
             else
@@ -67,11 +68,6 @@ namespace EmployeeManagement.Pages
         }
 
     }
-
-
-
-
-
 
 
 }

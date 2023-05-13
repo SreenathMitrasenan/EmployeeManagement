@@ -34,6 +34,18 @@
           }
         }
       },
+      "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+        "type": "package",
+        "dependencies": {
+          "Selenium.WebDriver": "3.10.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
+        }
+      },
       "ExtentReports/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -3767,6 +3779,28 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "CoreAutomation/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
+          "ExtentReports": "4.1.0",
+          "FluentAssertions": "6.2.0",
+          "Microsoft.NET.Test.Sdk": "17.0.0",
+          "NUnit3TestAdapter": "4.1.0",
+          "Selenium.Support": "4.8.2",
+          "Selenium.WebDriver": "4.8.2",
+          "SpecFlow.NUnit": "3.9.40",
+          "SpecFlow.Plus.LivingDocPlugin": "3.9.57",
+          "nunit": "3.13.2"
+        },
+        "compile": {
+          "bin/placeholder/CoreAutomation.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoreAutomation.dll": {}
+        }
       }
     }
   },
@@ -3807,6 +3841,21 @@
         "lib/netstandard1.3/DnsClient.xml",
         "lib/netstandard2.0/DnsClient.dll",
         "lib/netstandard2.0/DnsClient.xml"
+      ]
+    },
+    "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+      "sha512": "xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
+      "type": "package",
+      "path": "dotnetseleniumextras.waithelpers/3.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
+        "dotnetseleniumextras.waithelpers.nuspec",
+        "lib/net35/SeleniumExtras.WaitHelpers.dll",
+        "lib/net40/SeleniumExtras.WaitHelpers.dll",
+        "lib/net45/SeleniumExtras.WaitHelpers.dll",
+        "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll"
       ]
     },
     "ExtentReports/4.1.0": {
@@ -10903,10 +10952,16 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "CoreAutomation/1.0.0": {
+      "type": "project",
+      "path": "../CoreAutomation/CoreAutomation.csproj",
+      "msbuildProject": "../CoreAutomation/CoreAutomation.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CoreAutomation >= 1.0.0",
       "ExtentReports >= 4.1.0",
       "FluentAssertions >= 6.2.0",
       "Microsoft.Extensions.Configuration.Abstractions >= 7.0.0",
@@ -10926,11 +10981,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SpecflowProject\\EmployeeManagement\\EmployeeManagement.csproj",
+      "projectUniqueName": "C:\\Users\\ellip\\source\\Repos\\GuiTests\\EmployeeManagement\\EmployeeManagement.csproj",
       "projectName": "EmployeeManagement",
-      "projectPath": "D:\\SpecflowProject\\EmployeeManagement\\EmployeeManagement.csproj",
+      "projectPath": "C:\\Users\\ellip\\source\\Repos\\GuiTests\\EmployeeManagement\\EmployeeManagement.csproj",
       "packagesPath": "C:\\Users\\ellip\\.nuget\\packages\\",
-      "outputPath": "D:\\SpecflowProject\\EmployeeManagement\\obj\\",
+      "outputPath": "C:\\Users\\ellip\\source\\Repos\\GuiTests\\EmployeeManagement\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ellip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10946,7 +11001,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ellip\\source\\Repos\\GuiTests\\CoreAutomation\\CoreAutomation.csproj": {
+              "projectPath": "C:\\Users\\ellip\\source\\Repos\\GuiTests\\CoreAutomation\\CoreAutomation.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

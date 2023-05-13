@@ -25,16 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="WebTableGenerator\" />
-    <Folder Include="Screenshots\" />
+    <ProjectReference Include="..\CoreAutomation\CoreAutomation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Features\DeleteEmployee.feature.cs">
       <DependentUpon>DeleteEmployee.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Utilities\CaptureScreen.cs">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
 

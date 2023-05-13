@@ -1,0 +1,86 @@
+
+
+public class HomeSteps
+{
+	private readonly IWebDriver _driver;
+	private readonly HomePage _homePage;
+	private readonly String className ;
+	private readonly int defaultWait;
+	public HomeSteps(ScenarioContext scenarioContext)
+	{
+		driver = scenarioContext.Get<IWebDriver>("driver");
+		_homePage = newHomePage(driver)
+		className = this.GetType().Name.Replace("Steps","");
+		defaultWait = TestSettings.DefaultWaitTime;
+	}
+
+
+	[Then(@"I click on (.*) webelement present in Home page")]
+	public void ThenIClickOn_WebelementPresentInHomePage(string webElement)
+	{
+	string txtToType = string.Empty;
+		if (_homePage.GetControlInfo(webElement) != null) 
+		{
+			PerformAction(_homePage.GetWebElement(webElement), _homePage.GetControlInfo(webElement), txtToType, className);
+		}
+		else
+		{
+			ReportLog.ReportStep(Status.Fail, String.Format("Web element {0} not found in {1} page  ", webElement, className));
+		}
+	}
+
+	[Then(@"I set below values in Home page")]
+	public void ThenISetBelowValuesInHomePage(Table table)
+		foreach (var row in table.Rows)
+			{
+				var key = row["key"];
+				var value = row["value"].Trim();
+				if (_homePage.GetControlInfo(key) != null)
+				{
+					PerformAction(_homePage.GetWebElement(key),_homePage.GetControlInfo(key), value, className);
+				}
+				else
+				{
+					ReportLog.ReportStep(Status.Fail, String.Format("Web element {0} not found in {1} page  ", key, className));
+				}
+			}
+
+	private void PerformAction(IWebElement iElement, object[] objProperties, string value, string className)
+		{
+			string controlName = objProperties[0].ToString();
+			string controlType = objProperties[1].ToString().ToLower().Trim();
+			By locator = (By)objProperties[3];
+			string txtToSend = value;
+			string pageName = className;
+			SeleniumExtensions.WaitForElementToLoad(driver, locator, controlName, pageName,true,20);
+			try
+			{
+				switch (controlType)
+				{
+					case "button":
+						iElement.ClickElement(controlName, controlType, txtToSend, pageName);
+						break;
+					case "textbox":
+						iElement.SendKeysToElement(controlName, txtToSend, pageName);
+						break;
+					case "radio":
+						iElement.ClickElement(controlName, controlType, txtToSend, pageName);
+						break;
+					case "dropdown":
+						iElement.SelectElement(controlName, "value", txtToSend, pageName);
+						break;
+					case "":
+						ReportLog.ReportStep(Status.Fail, String.Format("Control type not found for element {0} ", controlName));
+						break;
+				case "default":
+					break;
+				}
+			}
+			catch (Exception ex)
+			{
+				ReportLog.ReportStep(Status.Fail, String.Format("Execption occured while performing action, message {0} ", ex.Message));
+			}
+		}
+
+}
+

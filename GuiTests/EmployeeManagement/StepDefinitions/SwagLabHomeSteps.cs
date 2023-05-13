@@ -1,13 +1,13 @@
-﻿using EmployeeManagement.Extensions;
+﻿using CoreAutomation.Extensions;
+using CoreAutomation.Utilities;
 using EmployeeManagement.Pages;
-using EmployeeManagement.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static EmployeeManagement.Utilities.ReportLog;
+using static CoreAutomation.Utilities.ReportLog;
 
 namespace EmployeeManagement.StepDefinitions
 {
@@ -38,7 +38,7 @@ namespace EmployeeManagement.StepDefinitions
             }
             else
             {
-                ReportLog.ReportStep(Status.Fail, String.Format("Web element {0} not found in {1} page  ", webElement, className));
+                CoreAutomation.Utilities.ReportLog.ReportStep(Status.Fail, String.Format("Web element {0} not found in {1} page  ", webElement, className));
             }
         }
 

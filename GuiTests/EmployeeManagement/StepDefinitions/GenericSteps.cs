@@ -1,5 +1,5 @@
-﻿using EmployeeManagement.Pages;
-using EmployeeManagement.Utilities;
+﻿using CoreAutomation.Utilities;
+using EmployeeManagement.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static EmployeeManagement.Utilities.ReportLog;
+using static CoreAutomation.Utilities.ReportLog;
 
 namespace EmployeeManagement.StepDefinitions
 {
