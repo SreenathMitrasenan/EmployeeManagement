@@ -8,8 +8,9 @@ Scenario: 01_Create employee in employee manager appliation and verify its creat
 	Then I set below values in CreateEmployee page
 	| key            | value               |
 	| name           | Roger               |
-	| email          | roger1885@gmail.com |	
-	| proofSubmitted | PAN                 |	
+	| email          | roger1885@gmail.com |
+	| proofSubmitted | PAN                 |
+	| department     | Omega               |
 	| salary         | 175000              |
 	Then I click on save webelement present in CreateEmployee page
 	Then I verify and accept alert message with text Data Inserted Successfully! on CreateEmployee page

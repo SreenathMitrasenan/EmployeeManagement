@@ -1,7 +1,7 @@
-﻿using EmployeeManagement.Extensions;
-using EmployeeManagement.Managers;
+﻿using CoreAutomation.Extensions;
+using CoreAutomation.TestFixture;
+using CoreAutomation.Utilities;
 using EmployeeManagement.Pages;
-using EmployeeManagement.Utilities;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
 using OpenQA.Selenium;
 using System;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static EmployeeManagement.Utilities.ReportLog;
+using static CoreAutomation.Utilities.ReportLog;
 
 namespace EmployeeManagement.StepDefinitions
 {
@@ -21,18 +21,19 @@ namespace EmployeeManagement.StepDefinitions
         private readonly IWebDriver driver;
         private readonly HomePage _homePage; 
         private readonly string className ;
+        private readonly int defaultWait;
 
         public HomeSteps(ScenarioContext scenarioContext)
         {
             driver = scenarioContext.Get<IWebDriver>("driver");
-           _homePage = new HomePage(driver);
+            _homePage = new HomePage(driver);
             className = this.GetType().Name.Replace("Steps", "");
+            defaultWait = TestSettings.DefaultWaitTime;
         }
 
         [StepDefinition(@"I lauch application")]
         public void GivenILauchApplication()
         {
-           // driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("http://localhost:3000");
         }
 
@@ -63,8 +64,8 @@ namespace EmployeeManagement.StepDefinitions
             string dName = pName.Trim();
             int idRowNum = 0;
             string idColName= string.Empty;
-            IWebElement table = _homePage.EmployeeRecordTable;
-            var dd = HtmlTableExtension.ReadTable(table);
+            IWebElement table = _homePage.employeeRecords;
+            var dd = CoreAutomation.Extensions.HtmlTableExtension.ReadTable(table);
             foreach (var item in dd)
             {
                 var cName = item.ColumnName;
@@ -78,19 +79,20 @@ namespace EmployeeManagement.StepDefinitions
             }
             ReportLog.ReportStep(Status.Info, String.Format("Table property '{0}' and value '{1}'  identified in row '{2}' and column '{3}' ", dName, dValue, idRowNum, idColName));
             // Delete Record
-            var tbldelete = string.Format(HomePage.DeleteRow, idRowNum);
+            var tbldelete = string.Format(HomePage.deleteRow, idRowNum);
             driver.FindElement(By.XPath(tbldelete)).ClickElement("Delete","button", "", className);
 
         }
 
 
-        private void PerformAction(IWebElement iElement, string[] objProperties, string value, string className)
+        private void PerformAction(IWebElement iElement, object[] objProperties, string value, string className)
         {
-            //string action = objProperties[4];
-            string controlName = objProperties[0];
-            string controlType = objProperties[1].ToLower().Trim();
+            string controlName = objProperties[0].ToString();
+            string controlType = objProperties[1].ToString().ToLower().Trim();
+            By locator = (By)objProperties[3];
             string txtToSend = value;
             string pageName = className;
+            SeleniumExtensions.WaitForElementToLoad(driver, locator, controlName, pageName, true, defaultWait);
             try
             {
                 switch (controlType)
